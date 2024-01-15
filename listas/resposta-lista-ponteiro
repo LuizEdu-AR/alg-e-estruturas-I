@@ -1,0 +1,46 @@
+Questão 01:
+x: 3
+y: 4
+p: Aponta para y
+
+Questão 02:
+a) Mensagem de erro.
+
+b) Há um erro na linha p = x;. O ponteiro p deve armazenar o endereço de uma variável, mas neste caso, está sendo atribuído o valor de x diretamente a p, o que é um erro.
+
+c) Não, o programa exibiu mensagem de erro de compilação.
+
+d) int main(void) {
+    int x, *p;
+    x = 100;
+    p = &x;  // Correção aqui
+    printf("Valor de p = %p\tValor de *p = %d", (void*)p, *p);
+}
+e) Sim
+
+Questão 03:
+a saída do programa deverá ser:
+10    21    10    21
+
+Questão 04:
+#include <stdio.h>
+#include <math.h>
+
+void calcula_hexagono(float l, float *area, float *perimetro) {
+    *area = (3 * pow(l, 2) * sqrt(3)) / 2;
+    *perimetro = 6 * l;
+}
+
+int main(void) {
+    float lado, area, perimetro;
+
+    printf("Digite o lado do hexágono: ");
+    scanf("%f", &lado);
+
+    calcula_hexagono(lado, &area, &perimetro);
+  
+    printf("Área do hexágono: %.2f\n", area);
+    printf("Perímetro do hexágono: %.2f\n", perimetro);
+
+    return 0;
+}
