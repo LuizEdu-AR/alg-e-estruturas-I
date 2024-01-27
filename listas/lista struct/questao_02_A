@@ -1,1 +1,32 @@
+#include <stdio.h>
+
+struct Pessoa {
+    char nome[50];
+    int numeroDocumento;
+    int idade;
+};
+
+void preencherDados(struct Pessoa *pessoa) {
+    printf("Digite o nome da pessoa: ");
+    fgets(pessoa->nome, sizeof(pessoa->nome), stdin);
+
+    printf("Digite o numero do documento: ");
+    scanf("%lld", &(pessoa->numeroDocumento));
+
+    while (getchar() != '\n');
+
+    printf("Digite a idade da pessoa: ");
+    scanf("%d", &(pessoa->idade));
+
+    while (getchar() != '\n');
+}
+
+int main() {
+    struct Pessoa pessoa;
+
+    preencherDados(&pessoa);
+
+
+    return 0;
+}
 
