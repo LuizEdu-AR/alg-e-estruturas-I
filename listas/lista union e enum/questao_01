@@ -1,1 +1,42 @@
+#include <stdio.h>
+
+enum Genero {
+    MASCULINO,
+    FEMININO
+};
+struct Pessoa {
+    char nome[50];
+    int idade;
+    enum Genero genero;
+};
+
+void imprimirDados(const struct Pessoa *pessoa) {
+    printf("\nDados da Pessoa:\n");
+    printf("Nome: %s", pessoa->nome);
+    printf("Idade: %d\n", pessoa->idade);
+    
+    printf("Genero: %s\n", pessoa->genero == MASCULINO ? "Masculino" : "Feminino");
+}
+
+int main() {
+    struct Pessoa pessoa;
+
+    printf("Preencha os dados da pessoa:\n");
+
+    printf("Digite o nome da pessoa: ");
+    fgets(pessoa.nome, sizeof(pessoa.nome), stdin);
+
+    printf("Digite a idade da pessoa: ");
+    scanf("%d", &(pessoa.idade));
+
+    while (getchar() != '\n');
+
+    scanf("%d", &(pessoa.genero));
+
+    while (getchar() != '\n');
+
+    imprimirDados(&pessoa);
+
+    return 0;
+}
 
