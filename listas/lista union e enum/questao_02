@@ -1,1 +1,82 @@
+#include <stdio.h>
+
+union TipoProduto {
+    char alimento[50];
+    char bebida[50];
+    char eletronico[50];
+};
+
+enum Tipo {
+    ALIMENTO,
+    BEBIDA,
+    ELETRONICO
+};
+
+struct Produto {
+    char nome[50];
+    float preco;
+    enum Tipo tipo;
+    union TipoProduto tipoDetalhado;
+};
+
+void imprimirDados(const struct Produto *produto) {
+    printf("\nDados do Produto:\n");
+    printf("Nome: %s", produto->nome);
+    printf("Preco: R$ %.2f\n", produto->preco);
+
+    switch (produto->tipo) {
+        case ALIMENTO:
+            printf("Tipo: Alimento - Detalhe: %s\n", produto->tipoDetalhado.alimento);
+            break;
+        case BEBIDA:
+            printf("Tipo: Bebida - Detalhe: %s\n", produto->tipoDetalhado.bebida);
+            break;
+        case ELETRONICO:
+            printf("Tipo: Eletronico - Detalhe: %s\n", produto->tipoDetalhado.eletronico);
+            break;
+        default:
+            printf("Tipo: Desconhecido\n");
+            break;
+    }
+}
+
+int main() {
+    struct Produto produto;
+
+    printf("Preencha os dados do produto:\n");
+
+    printf("Digite o nome do produto: ");
+    fgets(produto.nome, sizeof(produto.nome), stdin);
+
+    printf("Digite o preco do produto: R$ ");
+    scanf("%f", &(produto.preco));
+
+    while (getchar() != '\n');
+
+    printf("Digite o tipo do produto (0 para Alimento, 1 para Bebida, 2 para Eletronico): ");
+    scanf("%d", &(produto.tipo));
+
+    while (getchar() != '\n');
+
+    switch (produto.tipo) {
+        case ALIMENTO:
+            printf("Digite o detalhe (alimento): ");
+            fgets(produto.tipoDetalhado.alimento, sizeof(produto.tipoDetalhado.alimento), stdin);
+            break;
+        case BEBIDA:
+            printf("Digite o detalhe (bebida): ");
+            fgets(produto.tipoDetalhado.bebida, sizeof(produto.tipoDetalhado.bebida), stdin);
+            break;
+        case ELETRONICO:
+            printf("Digite o detalhe (eletronico): ");
+            fgets(produto.tipoDetalhado.eletronico, sizeof(produto.tipoDetalhado.eletronico), stdin);
+            break;
+        default:
+            break;
+    }
+
+    imprimirDados(&produto);
+
+    return 0;
+}
 
