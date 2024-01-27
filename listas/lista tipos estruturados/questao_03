@@ -1,1 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+struct Ponto {
+    float x;
+    float y;
+};
+
+struct Retangulo {
+    struct Ponto canto_superior_esquerdo;
+    float base;
+    float altura;
+};
+
+struct Circulo {
+    struct Ponto centro;
+    float raio;
+};
+
+// Função para calcular o maior retângulo circunscrito a um círculo
+struct Retangulo* ret_circunscrito(struct Circulo* c, float h) {
+    // Criando um retângulo circunscrito ao círculo
+    struct Retangulo* retangulo = (struct Retangulo*)malloc(sizeof(struct Retangulo));
+
+    // O canto superior esquerdo do retângulo é deslocado para cima
+    retangulo->canto_superior_esquerdo.x = c->centro.x - c->raio;
+    retangulo->canto_superior_esquerdo.y = c->centro.y + c->raio - h;
+    
+    // A base e a altura do retângulo são proporcionais ao diâmetro do círculo
+    retangulo->base = 2 * c->raio;
+    retangulo->altura = h;
+
+    return retangulo;
+}
+
+// Função para calcular o maior círculo interno a um retângulo
+struct Circulo* circ_interno(struct Retangulo* r) {
+    // Criando um círculo interno ao retângulo
+    struct Circulo* circulo = (struct Circulo*)malloc(sizeof(struct Circulo));
+
+    // O centro do círculo é o ponto médio do retângulo
+    circulo->centro.x = r->canto_superior_esquerdo.x + 0.5 * r->base;
+    circulo->centro.y = r->canto_superior_esquerdo.y - 0.5 * r->altura;
+
+    // O raio do círculo é a metade da menor dimensão do retângulo
+    circulo->raio = fmin(0.5 * r->base, 0.5 * r->altura);
+
+    return circulo;
+}
+
+int main() {
+    // Testando a função para criar o maior retângulo circunscrito a um círculo
+    struct Circulo circulo = {{0, 0}, 5};
+    float altura_retangulo_circunscrito = 8;
+
+    struct Retangulo* retangulo_circunscrito = ret_circunscrito(&circulo, altura_retangulo_circunscrito);
+
+    printf("Retângulo circunscrito:\n");
+    printf("Canto superior esquerdo: (%.2f, %.2f)\n", retangulo_circunscrito->canto_superior_esquerdo.x, retangulo_circunscrito->canto_superior_esquerdo.y);
+    printf("Base: %.2f\n", retangulo_circunscrito->base);
+    printf("Altura: %.2f\n", retangulo_circunscrito->altura);
+    free(retangulo_circunscrito);
+
+    // Testando a função para criar o maior círculo interno a um retângulo
+    struct Retangulo retangulo = {{-3, 2}, 6, 4};
+
+    struct Circulo* circulo_interno = circ_interno(&retangulo);
+
+    printf("\nCírculo interno:\n");
+    printf("Centro: (%.2f, %.2f)\n", circulo_interno->centro.x, circulo_interno->centro.y);
+    printf("Raio: %.2f\n", circulo_interno->raio);
+    free(circulo_interno);
+
+    return 0;
+}
 
