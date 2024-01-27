@@ -1,1 +1,79 @@
+#include <stdio.h>
 
+struct Funcionario {
+    char nome[50];
+    float salario;
+    int identificador;
+    char cargo[50];
+};
+void preencherDados(struct Funcionario *funcionario) {
+    printf("Digite o nome do funcionario: ");
+    fgets(funcionario->nome, sizeof(funcionario->nome), stdin);
+
+    printf("Digite o salario do funcionario: ");
+    scanf("%f", &(funcionario->salario));
+
+    printf("Digite o identificador do funcionario: ");
+    scanf("%d", &(funcionario->identificador));
+
+    while (getchar() != '\n');
+    printf("Digite o cargo do funcionario: ");
+    fgets(funcionario->cargo, sizeof(funcionario->cargo), stdin);
+}
+void alterarSalario(struct Funcionario *funcionario, float novoSalario) {
+    funcionario->salario = novoSalario;
+}
+void imprimirDados(const struct Funcionario *funcionario) {
+    printf("\nDados do Funcionario:\n");
+    printf("Nome: %s", funcionario->nome);
+    printf("Salario: %.2f\n", funcionario->salario);
+    printf("Identificador: %d\n", funcionario->identificador);
+    printf("Cargo: %s", funcionario->cargo);
+}
+void encontrarSalariosExtremos(const struct Funcionario *funcionarios, int tamanho, struct Funcionario *maiorSalario, struct Funcionario *menorSalario) {
+    *maiorSalario = funcionarios[0];
+    *menorSalario = funcionarios[0];
+
+    for (int i = 1; i < tamanho; i++) {
+        if (funcionarios[i].salario > maiorSalario->salario) {
+            *maiorSalario = funcionarios[i];
+        }
+
+        if (funcionarios[i].salario < menorSalario->salario) {
+            *menorSalario = funcionarios[i];
+        }
+    }
+}
+
+int main() {
+    struct Funcionario funcionario;
+    printf("Preencha os dados do funcionario:\n");
+    preencherDados(&funcionario);
+
+    printf("\nDados do Funcionario antes da alteracao do salario:\n");
+    imprimirDados(&funcionario);
+
+    float novoSalario;
+    printf("\nDigite o novo salario: ");
+    scanf("%f", &novoSalario);
+    alterarSalario(&funcionario, novoSalario);
+
+    printf("\nDados do Funcionario depois da alteracao do salario:\n");
+    imprimirDados(&funcionario);
+
+    int tamanho = sizeof(funcionarios) / sizeof(funcionarios[0]);
+
+    struct Funcionario funcionarioMaiorSalario, funcionarioMenorSalario;
+
+    encontrarSalariosExtremos(funcionarios, tamanho, &funcionarioMaiorSalario, &funcionarioMenorSalario);
+
+    printf("Funcionario com maior salario:\n");
+    printf("Cargo: %s\n", funcionarioMaiorSalario.cargo);
+    printf("Salario: %.2f\n", funcionarioMaiorSalario.salario);
+
+    printf("\nFuncionario com menor salario:\n");
+    printf("Cargo: %s\n", funcionarioMenorSalario.cargo);
+    printf("Salario: %.2f\n", funcionarioMenorSalario.salario);
+
+    return 0;
+}
