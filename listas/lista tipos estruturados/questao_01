@@ -1,1 +1,99 @@
+#include <stdio.h>
+
+struct Ingresso {
+    float preco;
+    char local[50];
+    char atracao[50];
+};
+
+void preenche(struct Ingresso *i);
+void imprime(const struct Ingresso *i);
+void altera_preco(struct Ingresso *i, float valor);
+void imprime_menor_maior_preco(int n, struct Ingresso *vet);
+
+int main() {
+    const int n = 3;
+    struct Ingresso ingressos[n];
+
+    // Preenchendo os dados dos ingressos
+    for (int i = 0; i < n; i++) {
+        printf("Preencha os dados do ingresso %d:\n", i + 1);
+        preenche(&ingressos[i]);
+    }
+
+    // Imprimindo os dados dos ingressos
+    printf("\nDados dos ingressos:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Ingresso %d:\n", i + 1);
+        imprime(&ingressos[i]);
+    }
+
+    // Alterando o preço de um ingresso
+    int indice_alteracao;
+    float novo_preco;
+    printf("\nDigite o índice do ingresso que deseja alterar o preço (de 1 a %d): ", n);
+    scanf("%d", &indice_alteracao);
+
+    printf("Digite o novo preço para o ingresso %d: ", indice_alteracao);
+    scanf("%f", &novo_preco);
+
+    altera_preco(&ingressos[indice_alteracao - 1], novo_preco);
+
+    // Imprimindo os dados após a alteração
+    printf("\nDados dos ingressos após alteração de preço:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Ingresso %d:\n", i + 1);
+        imprime(&ingressos[i]);
+    }
+
+    // Imprimindo o evento mais barato e mais caro
+    imprime_menor_maior_preco(n, ingressos);
+
+    return 0;
+}
+
+// Função para preencher os campos de um ingresso
+void preenche(struct Ingresso *i) {
+    printf("Digite o preço do ingresso: ");
+    scanf("%f", &i->preco);
+
+    printf("Digite o local do evento: ");
+    scanf("%s", i->local);
+
+    printf("Digite a atração do evento: ");
+    scanf("%s", i->atracao);
+}
+
+// Função para imprimir os campos de um ingresso
+void imprime(const struct Ingresso *i) {
+    printf("Preço: %.2f\n", i->preco);
+    printf("Local: %s\n", i->local);
+    printf("Atração: %s\n", i->atracao);
+}
+
+// Função para alterar o preço de um ingresso
+void altera_preco(struct Ingresso *i, float valor) {
+    i->preco = valor;
+}
+
+// Função para imprimir os eventos de ingresso mais barato e mais caro
+void imprime_menor_maior_preco(int n, struct Ingresso *vet) {
+    int indice_menor = 0, indice_maior = 0;
+
+    for (int i = 1; i < n; i++) {
+        if (vet[i].preco < vet[indice_menor].preco) {
+            indice_menor = i;
+        }
+
+        if (vet[i].preco > vet[indice_maior].preco) {
+            indice_maior = i;
+        }
+    }
+
+    printf("\nEvento mais barato:\n");
+    imprime(&vet[indice_menor]);
+
+    printf("\nEvento mais caro:\n");
+    imprime(&vet[indice_maior]);
+}
 
