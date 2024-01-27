@@ -1,1 +1,25 @@
+#include <stdio.h>
+
+struct Funcionario {
+    char nome[50];
+    float salario;
+    int identificador;
+    char cargo[50];
+};
+void imprimirDados(const struct Funcionario *funcionario) {
+    printf("\nDados do Funcionario:\n");
+    printf("Nome: %s", funcionario->nome);
+    printf("Salario: %.2f\n", funcionario->salario);
+    printf("Identificador: %d\n", funcionario->identificador);
+    printf("Cargo: %s", funcionario->cargo);
+}
+
+int main() {
+    struct Funcionario funcionario;
+    printf("Preencha os dados do funcionario:\n");
+    preencherDados(&funcionario);
+    imprimirDados(&funcionario);
+
+    return 0;
+}
 
