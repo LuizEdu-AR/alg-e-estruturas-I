@@ -1,1 +1,35 @@
+#include <stdio.h>
+
+// Definindo a estrutura Funcionario
+struct Funcionario {
+    char nome[50];
+    float salario;
+    int identificador;
+    char cargo[50];
+};
+
+// Função para preencher os dados de um funcionário
+void preencherDados(struct Funcionario *funcionario) {
+    printf("Digite o nome do funcionario: ");
+    fgets(funcionario->nome, sizeof(funcionario->nome), stdin);
+
+    printf("Digite o salario do funcionario: ");
+    scanf("%f", &(funcionario->salario));
+
+    printf("Digite o identificador do funcionario: ");
+    scanf("%d", &(funcionario->identificador));
+
+    // Limpando o buffer do teclado após a leitura dos números
+    while (getchar() != '\n');
+
+    printf("Digite o cargo do funcionario: ");
+    fgets(funcionario->cargo, sizeof(funcionario->cargo), stdin);
+}
+
+int main() {
+    struct Funcionario funcionario;
+    preencherDados(&funcionario);
+
+    return 0;
+}
 
