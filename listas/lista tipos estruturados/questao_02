@@ -1,1 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_ALUNOS 50
+
+struct Aluno {
+    int matricula;
+    char nome[80];
+    char turma;
+    float notas[3];
+    float media;
+};
+
+// Inicializa o vetor de ponteiros para estrutura com NULL
+void inicializaAlunos(struct Aluno **alunos) {
+    for (int i = 0; i < MAX_ALUNOS; i++) {
+        alunos[i] = NULL;
+    }
+}
+
+// Implementação da função para matricular um aluno na disciplina
+void matricula(int n, struct Aluno **alunos) {
+    if (n < 0 || n >= MAX_ALUNOS) {
+        printf("Número de vagas excedido.\n");
+        return;
+    }
+
+    if (alunos[n] != NULL) {
+        printf("Matrícula já ocupada.\n");
+        return;
+    }
+
+    alunos[n] = (struct Aluno *)malloc(sizeof(struct Aluno));
+
+    printf("Digite a matrícula do aluno: ");
+    scanf("%d", &(alunos[n]->matricula));
+
+    printf("Digite o nome do aluno: ");
+    scanf("%s", alunos[n]->nome);
+
+    printf("Digite a turma do aluno: ");
+    scanf(" %c", &(alunos[n]->turma));
+
+    // Lançando as notas
+    printf("Digite as notas do aluno (3 notas): ");
+    for (int i = 0; i < 3; i++) {
+        scanf("%f", &(alunos[n]->notas[i]));
+    }
+
+    // Calculando a média
+    alunos[n]->media = 0.0;
+    for (int i = 0; i < 3; i++) {
+        alunos[n]->media += alunos[n]->notas[i];
+    }
+    alunos[n]->media /= 3.0;
+
+    printf("Matrícula realizada com sucesso.\n");
+}
+
+// Implementação da função para lançar notas e calcular a média dos alunos
+void lanca_notas(int n, struct Aluno **alunos) {
+    for (int i = 0; i < n; i++) {
+        if (alunos[i] != NULL) {
+            // Lançando as notas
+            printf("Digite as novas notas do aluno %d (3 notas): ", alunos[i]->matricula);
+            for (int j = 0; j < 3; j++) {
+                scanf("%f", &(alunos[i]->notas[j]));
+            }
+
+            // Calculando a nova média
+            alunos[i]->media = 0.0;
+            for (int j = 0; j < 3; j++) {
+                alunos[i]->media += alunos[i]->notas[j];
+            }
+            alunos[i]->media /= 3.0;
+        }
+    }
+}
+
+// Implementação da função para imprimir os dados de todos os alunos
+void imprime_tudo(int n, struct Aluno **alunos) {
+    for (int i = 0; i < n; i++) {
+        if (alunos[i] != NULL) {
+            printf("\nDados do Aluno %d:\n", alunos[i]->matricula);
+            printf("Nome: %s\n", alunos[i]->nome);
+            printf("Turma: %c\n", alunos[i]->turma);
+            printf("Notas: %.2f, %.2f, %.2f\n", alunos[i]->notas[0], alunos[i]->notas[1], alunos[i]->notas[2]);
+            printf("Média: %.2f\n", alunos[i]->media);
+        }
+    }
+}
+
+// Implementação da função para imprimir os dados de todos os alunos de uma turma
+void imprime_turma(int n, struct Aluno **alunos, char turma) {
+    for (int i = 0; i < n; i++) {
+        if (alunos[i] != NULL && alunos[i]->turma == turma) {
+            printf("\nDados do Aluno %d:\n", alunos[i]->matricula);
+            printf("Nome: %s\n", alunos[i]->nome);
+            printf("Turma: %c\n", alunos[i]->turma);
+            printf("Notas: %.2f, %.2f, %.2f\n", alunos[i]->notas[0], alunos[i]->notas[1], alunos[i]->notas[2]);
+            printf("Média: %.2f\n", alunos[i]->media);
+        }
+    }
+}
+
+// Implementação da função para imprimir os alunos aprovados de uma determinada turma
+void imprime_turma_aprovados(int n, struct Aluno **alunos, char turma) {
+    printf("\nAlunos aprovados na turma %c:\n", turma);
+    for (int i = 0; i < n; i++) {
+        if (alunos[i] != NULL && alunos[i]->turma == turma && alunos[i]->media >= 7.0) {
+            printf("Aluno %d: %s, Média: %.2f\n", alunos[i]->matricula, alunos[i]->nome, alunos[i]->media);
+        }
+    }
+}
+
+// Função principal para testar as funções
+int main() {
+    struct Aluno *alunos[MAX_ALUNOS];
+
+    inicializaAlunos(alunos);
+
+    // Testando as funções
+    matricula(0, alunos);
+    matricula(1, alunos);
+    matricula(2, alunos);
+
+    lanca_notas(3, alunos);
+
+    imprime_tudo(3, alunos);
+
+    imprime_turma(3, alunos, 'A');
+
+    imprime_turma_aprovados(3, alunos, 'A');
+
+    // Libera a memória alocada
+    for (int i = 0; i < MAX_ALUNOS; i++) {
+        free(alunos[i]);
+    }
+
+    return 0;
+}
 
