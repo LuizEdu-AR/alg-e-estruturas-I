@@ -1,1 +1,50 @@
-q
+#include <stdio.h>
+
+enum Mes {
+    JANEIRO = 1,
+    FEVEREIRO,
+    MARCO,
+    ABRIL,
+    MAIO,
+    JUNHO,
+    JULHO,
+    AGOSTO,
+    SETEMBRO,
+    OUTUBRO,
+    NOVEMBRO,
+    DEZEMBRO
+};
+
+struct Data {
+    int dia;
+    enum Mes mes;
+    int ano;
+};
+
+void imprimirData(const struct Data *data) {
+    printf("\nData: %02d/%02d/%d\n", data->dia, data->mes, data->ano);
+}
+
+int main() {
+    struct Data data;
+
+    printf("Preencha os dados da data:\n");
+
+    printf("Digite o dia: ");
+    scanf("%d", &(data.dia));
+
+    while (getchar() != '\n');
+
+    printf("Digite o mes (1 a 12): ");
+    scanf("%d", &(data.mes));
+
+    while (getchar() != '\n');
+
+    printf("Digite o ano: ");
+    scanf("%d", &(data.ano));
+
+    imprimirData(&data);
+
+    return 0;
+}
+
