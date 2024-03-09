@@ -25,6 +25,10 @@ O repositório está organizado da seguinte maneira:
 
 
 
+[![Typing SVG](https://readme-typing-svg.herokuapp.com/?color=43FFD1&size=35&center=true&vCenter=true&width=1000&lines=Algorithms+and+Data+Structures+I+:%29)](https://git.io/typing-svg)
+
+
+
 # Algorithms and Data Structures I
 
 This repository contains notes and exercises from the Algorithms and Data Structures I course.
