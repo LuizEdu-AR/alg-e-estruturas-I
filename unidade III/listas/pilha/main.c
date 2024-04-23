@@ -13,4 +13,6 @@ int main(void){
     //imprimindo elementos da pilha
     pilha_imprime(pilha);
 
+    pilha_libera(pilha);
+    return 0;
 }
