@@ -1,5 +1,3 @@
-// escreva um programa que manipula listas de objetos geométricos planos para cálculo de áreas.
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -109,3 +107,7 @@ int main(){
     return 0;
     
 }
+
+//Esse código possui as funções: retangulo_area, circulo_area, triangulo_area, area e Max_Area. A função retangulo_area calcula a área de um retângulo, a função circulo_area calcula a área de um círculo, a função triangulo_area calcula a área de um triângulo, a função area calcula a área total de uma lista de figuras geométricas e a função Max_Area calcula a maior área de uma lista de figuras geométricas. A função main cria uma lista de figuras geométricas, adiciona figuras geométricas à lista, calcula a área total da lista de figuras geométricas e a maior área da lista de figuras geométricas e imprime os resultados.
+//Há o uso de alocação dinâmica de memória para a lista de figuras geométricas. 
+//A função main cria uma lista de figuras geométricas, adiciona figuras geométricas à lista, calcula a área total da lista de figuras geométricas e a maior área da lista de figuras geométricas e imprime os resultados.
